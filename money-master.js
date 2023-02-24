@@ -9,39 +9,56 @@ function getExpensesValueById(expenseId){
     return expenseValue;
 }
 
-function getMainIncomeById(incomeId){
-    const mainIncome = document.getElementById(incomeId);
-    const mainIncomeAmountString = expenseNumber.value;
-    const mainIncomeAmount = parseFloat(mainIncomeAmountString);
-    return mainIncomeAmount;
+function setTextElementValueById(expenseId, value){
+    const totalElement = document.getElementById(expenseId);
+    totalElement.value = value;
 }
 
-function getBlankFieldValueById(blankFieldId){
-    const bankfield = document.getElementById(blankFieldId);
-    // const bankfieldString = bankfield.value;
-    // const bankfieldAmount = parseFloat(bankfieldString)
-    return bankfield;
-}
+
+
+
+
 
 document.getElementById('calculate-btn').addEventListener('click', function(){
+    
     const costByFood = getExpensesValueById('food');
     const costByRent = getExpensesValueById('rent');
     const costByClothes = getExpensesValueById('clothes');
-    const totalexpense = getBlankFieldValueById('total-expense');
+    const totalexpense = getExpensesValueById('total-expense');
     const totalCoast = costByFood + costByRent + costByClothes;
-    totalexpense.value = totalCoast;
-    const mainIncomeValue = getBlankFieldValueById('income');
+    const totalExpenseFieldValue = totalexpense + totalCoast;
+    setTextElementValueById('total-expense', totalExpenseFieldValue );
 
-    const balanceField = getBlankFieldValueById('balance');
-    const income = mainIncomeValue - totalexpense;
 
-    balanceField.value = income;
+    const incomeField = getExpensesValueById('income');
+    const balanceField = incomeField - totalExpenseFieldValue;
+    const finalBalance = getExpensesValueById('balance');
+    const balanceFieldValue = balanceField + finalBalance;
+    setTextElementValueById('balance',balanceFieldValue);
 
-    // const balance = mainIncomeValue - totalexpense;
-    // balanceField.value = balance;
+   
+
+})
+document.getElementById('save-btn').addEventListener('click', function(){
+ 
+    const finalBalance = getExpensesValueById('balance');
+
+        
+    const saveField = getExpensesValueById('save-field');
+    const savings = finalBalance * 0.2;
+    const saveFieldAmount = savings - saveField;
+    setTextElementValueById('save-field',saveFieldAmount);
+
+    const remainingBalance = getExpensesValueById('remaining-balance');
+    const remainingBalanceField = finalBalance - saveFieldAmount;
+    const remainingBalanceFieldAmount = remainingBalance + remainingBalanceField;
+    setTextElementValueById('remaining-balance',remainingBalanceFieldAmount);
+
 
 
 
 
 
 })
+
+
